@@ -9,7 +9,7 @@ PRIVATE_NETS = {
     ('192.168.0.0', '192.168.255.255'),
     ('127.0.0.0', '127.255.255.255')}
 
-ECHO_QUERY = b'\x08\x00\x0b\x27\xeb\xd8\x01\x00'
+ECHO_REQUEST = b'\x08\x00\x0b\x27\xeb\xd8\x01\x00'
 
 
 def trace(destination_ip, hops, timeout):
@@ -19,7 +19,7 @@ def trace(destination_ip, hops, timeout):
     curr_ip = None
     while curr_ip != destination_ip and ttl != hops:
         sock.setsockopt(socket.SOL_IP, socket.IP_TTL, ttl)
-        sock.sendto(ECHO_QUERY, (destination_ip, 1))
+        sock.sendto(ECHO_REQUEST, (destination_ip, 1))
         try:
             ip = sock.recvfrom(1024)[1]
             curr_ip = ip[0]
