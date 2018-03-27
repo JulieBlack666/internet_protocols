@@ -26,14 +26,10 @@ def trace(destination_ip, hops, timeout):
 
 def get_info(ip):
     info = loads(urlopen(f'http://ipinfo.io/{ip}/json').read())
-    message = ''
     if 'bogon' in info:
-        return message
+        return ''
     keys = ['country', 'region', 'city', 'org']
-    for key in keys:
-        if key in info:
-            message += f'{info[key]} '
-    return message
+    return ', '.join([info[key] for key in keys if info[key]])
 
 
 if __name__ == '__main__':
