@@ -16,8 +16,7 @@ def trace(destination_ip, hops, timeout):
         try:
             ip = sock.recvfrom(1024)[1]
             curr_ip = ip[0]
-            message = f'{ttl}. {curr_ip: <20}'
-            message += get_info(curr_ip)
+            message = f'{ttl}. {curr_ip: <20} {get_info(curr_ip)}'
             print(message)
         except socket.timeout:
             print(f'{ttl}. *** Timeout exceeded')
